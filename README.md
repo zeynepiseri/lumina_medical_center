@@ -1,22 +1,17 @@
-# Lumina Medical Center
+# Lumina Medical Center - Mobile Client
 
-**An Enterprise-Level, RBAC-enabled Hospital Management System built with Clean Architecture.**
+![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-Language-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![Architecture](https://img.shields.io/badge/Architecture-Clean_Architecture-FF4081?style=for-the-badge)
+![State Management](https://img.shields.io/badge/State-BLoC-8A2BE2?style=for-the-badge)
 
----
+The cross-platform mobile application for the Lumina Hospital Management System. Designed for high performance and maintainability, the app features distinct operational dashboards for Patients, Doctors, and Administrators.
 
-## Project Overview
-
-Lumina Medical Center is a comprehensive **Hospital Management System** engineered to streamline healthcare interactions. It bridges the gap between patients, medical staff, and administrators through a secure, cross-platform interface backed by a scalable Spring Boot backend architecture.
-
-### Core Workflows
-
-- **For Patients:** Seamless appointment booking, real-time doctor availability checks by specialty, and medical history tracking.
-- **For Doctors:** A dedicated dashboard to manage daily schedules, view upcoming appointments, and update professional profiles.
-- **For Admins:** A Web & Mobile optimized command center for managing hospital branches, overseeing doctor/patient records, and handling system-wide analytics.
+🔗 **Backend API Repository:** [Lumina Core API](https://github.com/zeynepiseri/lumina-backend)
 
 ---
 
-## Screenshots
+## Application Showcase
 
 | Patient Flow | Book Appointment | My Appointments |
 |:---:|:---:|:---:|
@@ -26,92 +21,51 @@ Lumina Medical Center is a comprehensive **Hospital Management System** engineer
 
 ---
 
-## Architecture & Tech Stack
+## Architecture & Code Structure
 
-### Architecture
+The project strictly follows **Clean Architecture** combined with a **Feature-First** folder structure. This ensures highly decoupled, testable, and scalable code.
 
-![Clean Architecture](https://img.shields.io/badge/Architecture-Clean%20Architecture-blue)
-![Feature First](https://img.shields.io/badge/Pattern-Feature--First-blue)
-![MVVM](https://img.shields.io/badge/Pattern-MVVM-blue)
-![RBAC](https://img.shields.io/badge/Security-RBAC-red)
-![JWT](https://img.shields.io/badge/Auth-JWT-red)
+Each feature (e.g., `appointment`, `auth`, `doctor_dashboard`) is isolated into three layers:
+* **`presentation/`**: Contains UI components (Widgets, Pages) and State Management (`BLoC` / `Cubit`).
+* **`domain/`**: Houses the core business logic (Entities, Use Cases, Repository Interfaces).
+* **`data/`**: Manages external data fetching (Remote Data Sources, Models, Repository Implementations).
 
----
-
-### Technologies
-
-![Flutter](https://img.shields.io/badge/Flutter-3.x-blue?logo=flutter)
-![Bloc](https://img.shields.io/badge/State%20Management-Bloc-blue)
-![Dio](https://img.shields.io/badge/Networking-Dio-orange)
-![Spring Boot](https://img.shields.io/badge/Backend-SpringBoot-green?logo=springboot)
-![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-blue?logo=postgresql)
-![Docker](https://img.shields.io/badge/Container-Docker-blue?logo=docker)
+### Core Tech Stack
+* **State Management:** `flutter_bloc` / `cubit` (for predictable state transitions)
+* **Dependency Injection:** `get_it` & `injectable` (for automated DI container generation)
+* **Networking:** `dio` (configured with custom JWT interceptors for secure API calls)
+* **Data Parsing:** `freezed` & `json_serializable` (for immutable models and safe JSON parsing)
+* **Responsive UI:** `flutter_screenutil` (ensuring pixel-perfect layouts across different device dimensions)
+* **Localization:** ARB-based internal i18n (`l10n/app_en.arb`, `app_tr.arb`).
 
 ---
 
-### Detailed Stack
+## Key Features
 
-| Category | Technologies |
-|----------|--------------|
-| **Platforms** | Android, iOS, Web |
-| **State Management** | flutter_bloc, equatable |
-| **Dependency Injection** | get_it, injectable |
-| **Responsive UI** | responsive_framework, flutter_screenutil, sidebarx |
-| **Networking** | dio (JWT Interceptors), json_serializable |
-| **Localization** | flutter_localizations, l10n, ARB |
-| **Testing** | Unit Tests, Widget Tests, Mockito, BlocTest |
-| **Backend** | Spring Boot, Spring Security |
-| **Containerization** | Docker |
-| **Infrastructure** | Render (Hosting), Neon (Serverless PostgreSQL) |
+* **Dynamic Role-Based UI:** The application dynamically routes users to entirely different flows (Admin Panel, Doctor Schedule Manager, Patient Portal) based on their JWT claims.
+* **Complex Scheduling Interface:** Interactive time-slot generation matrix for booking appointments, preventing double-bookings natively.
+* **Offline-First Capabilities:** Utilizes local data caching strategies for essential configurations and user sessions.
+* **Real-time Form Validation:** Comprehensive form validations using custom reusable widget architectures.
 
 ---
 
-## Installation & Getting Started
+## Local Setup & Installation
 
-The application is pre-configured to connect to the live backend (Render).  
-You can run the mobile app directly without setting up a local server.
-
----
-
-## Prerequisites
-
-- Flutter SDK (3.x.x)
-- Java JDK (17 or higher)
-
----
-
-## 1. Mobile Application Setup (Flutter)
-
-Navigate to the project directory and install dependencies.
+**Prerequisites:** Flutter SDK (3.x.x) and Dart installed on your machine.
 
 ```bash
-# Get Flutter dependencies
+# 1. Clone the repository
+git clone [https://github.com/your-username/lumina_medical_center.git](https://github.com/your-username/lumina_medical_center.git)
+cd lumina_medical_center
+
+# 2. Fetch dependencies
 flutter pub get
 
-# Generate code files (Injectable & JSON Serialization)
+# 3. Generate boilerplate code (Crucial for DI and JSON serialization)
 dart run build_runner build --delete-conflicting-outputs
 
-# Generate Localization files
+# 4. Generate localization files
 flutter gen-l10n
-```
 
----
-
-## 2. Running the App
-
-```bash
-# Run on Android/iOS Emulator
+# 5. Run the application
 flutter run
-
-# Run Admin Dashboard on Web
-flutter run -d chrome --web-renderer html
-```
-
----
-
-## Running Tests
-
-```bash
-# Run all tests
-flutter test
-```
